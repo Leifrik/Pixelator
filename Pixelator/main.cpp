@@ -31,17 +31,8 @@ int main(int argc, char* argv[]) {
 		check_path(destination_path);
 		factor = strtol(argv[3], nullptr, 0);
 
-		//Loading original image
-		Mat img = imread(path);
-		imshow("original", img);
-
 		//Creating image with new dimensions
 		Mat mod = create_compressed_image(path, factor);
-
-		//Modifying image
-		std::vector<cv::Vec3b> compressed;
-		compressed = compress_vector(make_rangevector(img, mod, factor));
-		fill_new_image(mod, compressed, factor);
 
 		//Saving and showing modified image
 		save_image(mod, destination_path);
@@ -51,6 +42,10 @@ int main(int argc, char* argv[]) {
 	else {
 		std::cout << "Input incorrect try again" << std::endl;
 		get_unser_input(path, destination_path, factor);
+		Mat mod = create_compressed_image(path, factor);
+
+		//Saving and showing modified image
+		save_image(mod, destination_path);
 
 	}
 
